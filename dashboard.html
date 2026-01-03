@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard - EcoTrack</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef7ee;
+            padding-top: 60px;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            width: 360px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+
+        h2 {
+            color: #2e7d32;
+        }
+
+        .status {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .low { color: green; }
+        .moderate { color: orange; }
+        .high { color: red; }
+
+        button {
+            padding: 8px 16px;
+            margin-top: 10px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #1b5e20;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>EcoTrack Dashboard 🌱</h2>
+
+        <p><strong>Last Carbon Footprint:</strong></p>
+        <p id="value">-- kg CO₂/day</p>
+
+        <p class="status" id="status">Status</p>
+
+        <p><strong>Eco Tip:</strong></p>
+        <p id="tip"></p>
+
+        <button onclick="recalculate()">Recalculate</button><br><br>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        let carbon = localStorage.getItem("carbonValue");
+
+        if (!carbon) {
+            carbon = 0;
+        }
+
+        document.getElementById("value").innerHTML =
+            carbon + " kg CO₂/day";
+
+        if (carbon < 5) {
+            document.getElementById("status").innerHTML =
+                "Status: Low Emission";
+            document.getElementById("status").className = "status low";
+            document.getElementById("tip").innerHTML =
+                "Great job! Continue using eco-friendly habits.";
+        }
+        else if (carbon < 10) {
+            document.getElementById("status").innerHTML =
+                "Status: Moderate Emission";
+            document.getElementById("status").className = "status moderate";
+            document.getElementById("tip").innerHTML =
+                "Reduce electricity use and prefer public transport.";
+        }
+        else {
+            document.getElementById("status").innerHTML =
+                "Status: High Emission";
+            document.getElementById("status").className = "status high";
+            document.getElementById("tip").innerHTML =
+                "Urgently reduce energy usage and private vehicle travel.";
+        }
+
+        function recalculate() {
+            window.location.href = "calculator.html";
+        }
+
+        function logout() {
+            localStorage.removeItem("carbonValue");
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>

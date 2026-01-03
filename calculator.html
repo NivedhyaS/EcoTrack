@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Carbon Footprint Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef7ee;
+            text-align: center;
+            padding-top: 60px;
+        }
+        input, button {
+            padding: 8px;
+            margin: 8px;
+        }
+        button {
+            background: #2e7d32;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .back-btn:hover {
+            background: #388e3c;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Carbon Footprint Calculator</h2>
+
+    <label>Transport (km per day):</label><br>
+    <input type="number" id="transport"><br>
+
+    <label>Electricity usage (units per day):</label><br>
+    <input type="number" id="electricity"><br>
+
+    <button onclick="calculate()">Calculate</button><br><br>
+
+    <a href="index.html" class="back-btn">⬅ Back to Home</a>
+
+    <script>
+        function calculate() {
+            let transport = document.getElementById("transport").value;
+            let electricity = document.getElementById("electricity").value;
+
+            if (transport === "" || electricity === "") {
+                alert("Please enter all values");
+                return;
+            }
+
+            let carbon = (transport * 0.21) + (electricity * 0.85);
+
+            localStorage.setItem("carbonValue", carbon.toFixed(2));
+
+            window.location.href = "dashboard.html";
+        }
+    </script>
+
+</body>
+</html>
