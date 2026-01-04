@@ -1,53 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Carbon Footprint Calculator</title>
+    <meta charset="UTF-8">
+    <title>Carbon Calculator | EcoTrack</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #eef7ee;
+            padding-top: 80px;
             text-align: center;
-            padding-top: 60px;
         }
-        input, button {
+
+        .box {
+            background: white;
+            width: 380px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 12px #ccc;
+        }
+
+        h2 {
+            color: #2e7d32;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 80%;
             padding: 8px;
-            margin: 8px;
+            margin: 8px 0 15px 0;
         }
+
         button {
+            padding: 10px 20px;
             background: #2e7d32;
             color: white;
             border: none;
             cursor: pointer;
+            border-radius: 6px;
         }
-        .back-btn {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 8px 16px;
-            background: #4caf50;
-            color: white;
+
+        button:hover {
+            background: #1b5e20;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #2e7d32;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        .back-btn:hover {
-            background: #388e3c;
         }
     </style>
 </head>
-
 <body>
 
-    <h2>Carbon Footprint Calculator</h2>
+    <div class="box">
+        <h2>Carbon Footprint Calculator</h2>
 
-    <label>Transport (km per day):</label><br>
-    <input type="number" id="transport"><br>
+        <label>Daily Travel Distance (km)</label><br>
+        <input type="number" id="transport" min="0"><br>
 
-    <label>Electricity usage (units per day):</label><br>
-    <input type="number" id="electricity"><br>
+        <label>Electricity Usage (units/day)</label><br>
+        <input type="number" id="electricity" min="0"><br>
 
-    <button onclick="calculate()">Calculate</button><br><br>
+        <button onclick="calculate()">Calculate</button>
 
-    <a href="index.html" class="back-btn">⬅ Back to Home</a>
+        <a href="index.html">⬅ Back to Home</a>
+    </div>
 
     <script>
         function calculate() {
@@ -55,17 +77,18 @@
             let electricity = document.getElementById("electricity").value;
 
             if (transport === "" || electricity === "") {
-                alert("Please enter all values");
+                alert("Please fill all fields");
                 return;
             }
 
+            // Simple carbon estimation logic
             let carbon = (transport * 0.21) + (electricity * 0.85);
 
             localStorage.setItem("carbonValue", carbon.toFixed(2));
-
             window.location.href = "dashboard.html";
         }
     </script>
 
 </body>
 </html>
+
