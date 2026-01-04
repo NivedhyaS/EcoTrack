@@ -1,39 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>EcoTrack</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4fbf4;
-            text-align: center;
-            padding-top: 100px;
-        }
-        h1 {
-            color: #2e7d32;
-        }
-        a {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            background: #2e7d32;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        a:hover {
-            background: #1b5e20;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>EcoTrack | Climate Action Platform</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero {
+    background: rgba(255,255,255,0.75);
+    padding: 50px 70px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+h1 {
+    font-size: 42px;
+    color: #1b5e20;
+}
+
+p {
+    font-size: 18px;
+    color: #2e7d32;
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 14px 34px;
+    background: #2e7d32;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    background: #1b5e20;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+footer {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #2e7d32;
+    opacity: 0.8;
+}
+</style>
 </head>
 
 <body>
 
-    <h1>EcoTrack 🌱</h1>
-    <p>Track your carbon footprint and support climate action</p>
+<div class="hero">
+    <h1>EcoTrack 🌍</h1>
+    <p>Track your carbon footprint and take action for the climate</p>
 
-    <a href="calculator.html">Carbon Footprint Calculator</a>
-    <a href="dashboard.html">User Dashboard</a>
+    <a href="calculator.html" class="btn">Calculate Footprint</a>
+    <a href="dashboard.html" class="btn">View Dashboard</a>
+
+</div>
 
 </body>
 </html>
+
