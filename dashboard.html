@@ -2,29 +2,95 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard Test</title>
+<title>Dashboard | EcoTrack</title>
+
 <style>
 body {
     background: #eef7ee;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
 }
+
 .card {
     background: white;
-    padding: 40px;
-    border-radius: 12px;
+    width: 380px;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 15px #bbb;
+}
+
+.low { color: green; }
+.moderate { color: orange; }
+.high { color: red; }
+
+button {
+    padding: 10px 18px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }
 </style>
 </head>
+
 <body>
 
 <div class="card">
-    <h2>Dashboard Loaded ✅</h2>
-    <p>If you can see this, HTML is rendering.</p>
+    <h2>EcoTrack Dashboard 🌱</h2>
+
+    <p id="value">Loading...</p>
+    <p id="status"></p>
+    <p id="tip"></p>
+
+    <button onclick="recalculate()">Recalculate</button>
 </div>
+
+<script>
+(function () {
+    try {
+        const valueEl = document.getElementById("value");
+        const statusEl = document.getElementById("status");
+        const tipEl = document.getElementById("tip");
+
+        const carbon = localStorage.getItem("carbonValue");
+
+        if (!carbon) {
+            valueEl.innerText = "No data available";
+            tipEl.innerText = "Please calculate your carbon footprint first.";
+            return;
+        }
+
+        const c = parseFloat(carbon);
+        valueEl.innerText = c + " kg CO₂/day";
+
+        if (c < 5) {
+            statusEl.innerText = "Status: Low Emission";
+            statusEl.className = "low";
+            tipEl.innerText = "Great job! Keep using eco-friendly habits.";
+        } else if (c < 10) {
+            statusEl.innerText = "Status: Moderate Emission";
+            statusEl.className = "moderate";
+            tipEl.innerText = "Reduce electricity use and prefer public transport.";
+        } else {
+            statusEl.innerText = "Status: High Emission";
+            statusEl.className = "high";
+            tipEl.innerText = "Urgently reduce energy usage and private vehicle travel.";
+        }
+
+    } catch (e) {
+        document.body.innerHTML = "<h3>Dashboard error</h3><p>" + e + "</p>";
+    }
+})();
+
+function recalculate() {
+    window.location.href = "calculator.html";
+}
+</script>
 
 </body>
 </html>
