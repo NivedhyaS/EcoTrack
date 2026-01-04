@@ -1,31 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>User Dashboard - EcoTrack</title>
+    <meta charset="UTF-8">
+    <title>Dashboard | EcoTrack</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #eef7ee;
-            padding-top: 60px;
+            background: #eaf5ea;
+            padding-top: 80px;
             text-align: center;
         }
 
         .card {
             background: white;
-            width: 360px;
+            width: 380px;
             margin: auto;
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #ccc;
+            border-radius: 12px;
+            box-shadow: 0 0 12px #bbb;
         }
 
         h2 {
-            color: #2e7d32;
+            color: #1b5e20;
         }
 
         .status {
             font-size: 18px;
-            margin: 10px 0;
+            margin-top: 10px;
+            font-weight: bold;
         }
 
         .low { color: green; }
@@ -39,7 +41,7 @@
             color: white;
             border: none;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 6px;
         }
 
         button:hover {
@@ -47,16 +49,15 @@
         }
     </style>
 </head>
-
 <body>
 
     <div class="card">
         <h2>EcoTrack Dashboard 🌱</h2>
 
-        <p><strong>Last Carbon Footprint:</strong></p>
+        <p><strong>Your Carbon Footprint:</strong></p>
         <p id="value">-- kg CO₂/day</p>
 
-        <p class="status" id="status">Status</p>
+        <p id="status" class="status"></p>
 
         <p><strong>Eco Tip:</strong></p>
         <p id="tip"></p>
@@ -72,29 +73,24 @@
             carbon = 0;
         }
 
-        document.getElementById("value").innerHTML =
+        document.getElementById("value").innerText =
             carbon + " kg CO₂/day";
 
         if (carbon < 5) {
-            document.getElementById("status").innerHTML =
-                "Status: Low Emission";
-            document.getElementById("status").className = "status low";
-            document.getElementById("tip").innerHTML =
-                "Great job! Continue using eco-friendly habits.";
-        }
+            setStatus("Low Emission", "Great job! Keep using eco-friendly habits.", "low");
+        } 
         else if (carbon < 10) {
-            document.getElementById("status").innerHTML =
-                "Status: Moderate Emission";
-            document.getElementById("status").className = "status moderate";
-            document.getElementById("tip").innerHTML =
-                "Reduce electricity use and prefer public transport.";
-        }
+            setStatus("Moderate Emission", "Use public transport and save electricity.", "moderate");
+        } 
         else {
-            document.getElementById("status").innerHTML =
-                "Status: High Emission";
-            document.getElementById("status").className = "status high";
-            document.getElementById("tip").innerHTML =
-                "Urgently reduce energy usage and private vehicle travel.";
+            setStatus("High Emission", "Reduce energy usage and private vehicle travel.", "high");
+        }
+
+        function setStatus(text, tip, level) {
+            let status = document.getElementById("status");
+            status.innerText = "Status: " + text;
+            status.className = "status " + level;
+            document.getElementById("tip").innerText = tip;
         }
 
         function recalculate() {
@@ -102,10 +98,11 @@
         }
 
         function logout() {
-            localStorage.removeItem("carbonValue");
+            localStorage.clear();
             window.location.href = "index.html";
         }
     </script>
 
 </body>
 </html>
+
