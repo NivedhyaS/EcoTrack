@@ -1,41 +1,45 @@
 <script>
-let carbon = localStorage.getItem("carbonValue");
+document.addEventListener("DOMContentLoaded", function () {
 
-// If no calculation done yet
-if (carbon === null) {
-    document.getElementById("value").innerText = "No data available";
-    document.getElementById("status").innerText = "";
-    document.getElementById("tip").innerText =
-        "Please calculate your carbon footprint first.";
-} 
-else {
-    carbon = parseFloat(carbon);
+    let carbon = localStorage.getItem("carbonValue");
 
-    document.getElementById("value").innerText =
-        carbon + " kg CO₂/day";
+    const valueEl = document.getElementById("value");
+    const statusEl = document.getElementById("status");
+    const tipEl = document.getElementById("tip");
 
-    if (carbon < 5) {
-        document.getElementById("status").innerText =
-            "Status: Low Emission";
-        document.getElementById("status").className = "low";
-        document.getElementById("tip").innerText =
-            "Great job! Keep using eco-friendly habits.";
-    } 
-    else if (carbon < 10) {
-        document.getElementById("status").innerText =
-            "Status: Moderate Emission";
-        document.getElementById("status").className = "moderate";
-        document.getElementById("tip").innerText =
-            "Reduce electricity use and prefer public transport.";
+    if (!valueEl || !statusEl || !tipEl) {
+        console.error("Required elements not found in HTML");
+        return;
+    }
+
+    if (carbon === null) {
+        valueEl.innerText = "No data available";
+        statusEl.innerText = "";
+        tipEl.innerText = "Please calculate your carbon footprint first.";
     } 
     else {
-        document.getElementById("status").innerText =
-            "Status: High Emission";
-        document.getElementById("status").className = "high";
-        document.getElementById("tip").innerText =
-            "Urgently reduce energy usage and private vehicle travel.";
+        carbon = parseFloat(carbon);
+
+        valueEl.innerText = carbon + " kg CO₂/day";
+
+        if (carbon < 5) {
+            statusEl.innerText = "Status: Low Emission";
+            statusEl.className = "low";
+            tipEl.innerText = "Great job! Keep using eco-friendly habits.";
+        } 
+        else if (carbon < 10) {
+            statusEl.innerText = "Status: Moderate Emission";
+            statusEl.className = "moderate";
+            tipEl.innerText = "Reduce electricity use and prefer public transport.";
+        } 
+        else {
+            statusEl.innerText = "Status: High Emission";
+            statusEl.className = "high";
+            tipEl.innerText = "Urgently reduce energy usage and private vehicle travel.";
+        }
     }
-}
+
+});
 
 function recalculate() {
     window.location.href = "calculator.html";
