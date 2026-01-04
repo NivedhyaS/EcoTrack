@@ -1,108 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard | EcoTrack</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #eaf5ea;
-            padding-top: 80px;
-            text-align: center;
-        }
+<script>
+let carbon = localStorage.getItem("carbonValue");
 
-        .card {
-            background: white;
-            width: 380px;
-            margin: auto;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 0 12px #bbb;
-        }
+// If no calculation done yet
+if (carbon === null) {
+    document.getElementById("value").innerText = "No data available";
+    document.getElementById("status").innerText = "";
+    document.getElementById("tip").innerText =
+        "Please calculate your carbon footprint first.";
+} 
+else {
+    carbon = parseFloat(carbon);
 
-        h2 {
-            color: #1b5e20;
-        }
+    document.getElementById("value").innerText =
+        carbon + " kg CO₂/day";
 
-        .status {
-            font-size: 18px;
-            margin-top: 10px;
-            font-weight: bold;
-        }
+    if (carbon < 5) {
+        document.getElementById("status").innerText =
+            "Status: Low Emission";
+        document.getElementById("status").className = "low";
+        document.getElementById("tip").innerText =
+            "Great job! Keep using eco-friendly habits.";
+    } 
+    else if (carbon < 10) {
+        document.getElementById("status").innerText =
+            "Status: Moderate Emission";
+        document.getElementById("status").className = "moderate";
+        document.getElementById("tip").innerText =
+            "Reduce electricity use and prefer public transport.";
+    } 
+    else {
+        document.getElementById("status").innerText =
+            "Status: High Emission";
+        document.getElementById("status").className = "high";
+        document.getElementById("tip").innerText =
+            "Urgently reduce energy usage and private vehicle travel.";
+    }
+}
 
-        .low { color: green; }
-        .moderate { color: orange; }
-        .high { color: red; }
-
-        button {
-            padding: 8px 16px;
-            margin-top: 10px;
-            background: #2e7d32;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 6px;
-        }
-
-        button:hover {
-            background: #1b5e20;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="card">
-        <h2>EcoTrack Dashboard 🌱</h2>
-
-        <p><strong>Your Carbon Footprint:</strong></p>
-        <p id="value">-- kg CO₂/day</p>
-
-        <p id="status" class="status"></p>
-
-        <p><strong>Eco Tip:</strong></p>
-        <p id="tip"></p>
-
-        <button onclick="recalculate()">Recalculate</button><br><br>
-        <button onclick="logout()">Logout</button>
-    </div>
-
-    <script>
-        let carbon = localStorage.getItem("carbonValue");
-
-        if (!carbon) {
-            carbon = 0;
-        }
-
-        document.getElementById("value").innerText =
-            carbon + " kg CO₂/day";
-
-        if (carbon < 5) {
-            setStatus("Low Emission", "Great job! Keep using eco-friendly habits.", "low");
-        } 
-        else if (carbon < 10) {
-            setStatus("Moderate Emission", "Use public transport and save electricity.", "moderate");
-        } 
-        else {
-            setStatus("High Emission", "Reduce energy usage and private vehicle travel.", "high");
-        }
-
-        function setStatus(text, tip, level) {
-            let status = document.getElementById("status");
-            status.innerText = "Status: " + text;
-            status.className = "status " + level;
-            document.getElementById("tip").innerText = tip;
-        }
-
-        function recalculate() {
-            window.location.href = "calculator.html";
-        }
-
-        function logout() {
-            localStorage.clear();
-            window.location.href = "index.html";
-        }
-    </script>
-
-</body>
-</html>
+function recalculate() {
+    window.location.href = "calculator.html";
+}
+</script>
 
